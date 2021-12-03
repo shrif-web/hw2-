@@ -4,8 +4,8 @@
         <title>HomeWork2</title>
         <link
             rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="styles.css" />
@@ -23,47 +23,61 @@
                 <img src="assets/red_logo.png" class="logo" />
                 <div class="navbar-brand title">لورم ایپسوم</div>
 
+                <div class="custom-control custom-switch">
+                    <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="customSwitch1"
+                        onclick="onToggleModeClick()"
+                    />
+                    <label
+                        class="custom-control-label"
+                        for="customSwitch1"
+                    ></label>
+                </div>
+                <div class="dark-mode">تم تاریک</div>
+
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li id="header-nav" class="nav-item active">
                             <a class="nav-link" onclick="navItemClick('header')"
                                 >معرفی</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="cards-nav" class="nav-item">
                             <a class="nav-link" onclick="navItemClick('cards')"
                                 >تیم ما</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="gallery-nav" class="nav-item">
                             <a
                                 class="nav-link"
                                 onclick="navItemClick('gallery')"
                                 >محصولات</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="activities-nav" class="nav-item">
                             <a
                                 class="nav-link"
                                 onclick="navItemClick('activities')"
                                 >فعالیت‌ها</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="contact-us-nav" class="nav-item">
                             <a
                                 class="nav-link"
                                 onclick="navItemClick('contact-us')"
                                 >تماس با‌ما</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="comments-nav" class="nav-item">
                             <a
                                 class="nav-link"
                                 onclick="navItemClick('comments')"
                                 >نظرات مشتریان</a
                             >
                         </li>
-                        <li class="nav-item">
+                        <li id="footer-nav" class="nav-item">
                             <a class="nav-link" onclick="navItemClick('footer')"
                                 >خبرنامه</a
                             >
@@ -72,7 +86,7 @@
                 </div>
             </nav>
             <div class="main">
-                <div class="header">
+                <div id="header" class="header">
                     <div class="container">
                         <div class="title">لورم ایپسوم</div>
                         <div class="text">
@@ -82,14 +96,17 @@
                             است
                         </div>
                         <button
+                            id="change-bg-button"
                             class="btn btn-warning"
-                            onclick="changeHeaderBgColor()"
+                            onclick="onRandomColorClick()"
                         >
                             تغییر رنگ پس‌زمینه
                         </button>
                     </div>
+                    <div id="wave" class="wave"></div>
+                    <div id="header-gradient" class="header-gradient"></div>
                 </div>
-                <div class="cards">
+                <div id="cards" class="cards">
                     <div class="title">لورم ایپسوم</div>
                     <div class="card-group">
                         <div class="card">
@@ -314,7 +331,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="gallery">
+                <div id="gallery" class="gallery">
                     <div class="images">
                         <div class="image">
                             <img src="assets/image1.jpg" />
@@ -368,7 +385,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="activities">
+                <div id="activities" class="activities">
                     <div class="row">
                         <div class="description">
                             <div class="title">لورم ایپسوم</div>
@@ -448,7 +465,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-us text-white bg-dark">
+                <div id="contact-us" class="contact-us text-white bg-dark">
                     <div class="container">
                         <div class="icons">
                             <i class="fab fa-10x fa-instagram"></i>
@@ -462,7 +479,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="comments">
+                <div id="comments" class="comments">
                     <div class="container">
                         <div class="title">نظرات مشتریان</div>
 
@@ -472,7 +489,7 @@
                                     class="fas fa-2x fa-chevron-circle-right"
                                 ></i>
                             </a>
-                            <div class="content">
+                            <div class="card content">
                                 <img src="assets/person.jpg" />
                                 <div class="text">
                                     بع بععع بعععع بع بع بع بع بع بع بعبععیع بع
@@ -492,7 +509,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-container">
+                <div id="footer" class="footer-container">
                     <div class="footer text-white bg-dark">
                         <form class="news">
                             <div class="title">خبرنامه</div>
