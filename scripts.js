@@ -30,6 +30,7 @@ function onNavbarClick() {
     let selectedNavId = "header-nav";
 
     return (target) => {
+        closeSidebar();
         const targetElement = document.getElementsByClassName(target)[0];
         targetElement.scrollIntoView({ behavior: "smooth" });
         prevNavItem = document.getElementById(selectedNavId);
@@ -38,6 +39,14 @@ function onNavbarClick() {
         targetNavItem = document.getElementById(selectedNavId);
         targetNavItem.classList.add("active");
     };
+}
+
+function addOrRemoveClassname(element, mode, classname) {
+    if (mode) {
+        element.classList.add(classname);
+    } else {
+        element.classList.remove(classname);
+    }
 }
 
 function changeColor() {
@@ -54,16 +63,8 @@ function changeColor() {
     };
 
     let darkMode = false;
-    const bgIds = ["cards", "activities", "comments", "footer", "contact-us"];
+    const bgIds = ["cards", "activities", "comments", "footer"];
     const cards = document.getElementsByClassName("card");
-
-    const func = (element, mode, classname) => {
-        if (mode) {
-            element.classList.add(classname);
-        } else {
-            element.classList.remove(classname);
-        }
-    };
 
     return {
         toggleMode: () => {
@@ -71,24 +72,27 @@ function changeColor() {
 
             bgIds.forEach((id) => {
                 element = document.getElementById(id);
-                func(element, darkMode, "dark-background");
+                addOrRemoveClassname(element, darkMode, "dark-background");
             });
             Array.prototype.forEach.call(cards, (el) => {
-                func(el, darkMode, "dark-card");
+                addOrRemoveClassname(el, darkMode, "dark-card");
             });
-            const waveElement = document.getElementById("wave");
-            func(waveElement, darkMode, "dark-wave");
+            const waveElements = document.getElementsByClassName("wave");
+            Array.prototype.forEach.call(waveElements, (el) => {
+                addOrRemoveClassname(el, darkMode, "dark-wave");
+            });
 
             const headerElement = document.getElementById("header");
-            const headerGradientElement = document.getElementById("header-gradient");
-            func(headerElement, darkMode, "dark-header");
+            const headerGradientElement =
+                document.getElementById("header-gradient");
+            addOrRemoveClassname(headerElement, darkMode, "dark-header");
             const color = colorHndlr(darkMode, false);
             setَGradientColor(headerGradientElement, color);
 
             const changeBgColorBtn =
                 document.getElementById("change-bg-button");
-            func(changeBgColorBtn, !darkMode, "btn-warning");
-            func(changeBgColorBtn, darkMode, "btn-secondary");
+            addOrRemoveClassname(changeBgColorBtn, !darkMode, "btn-warning");
+            addOrRemoveClassname(changeBgColorBtn, darkMode, "btn-secondary");
         },
         randomColor: () => {
             const color = colorHndlr(darkMode, true);
@@ -98,8 +102,65 @@ function changeColor() {
     };
 }
 
-const navItemClick = onNavbarClick();
+function moveComments() {
+    let currentCustomer = 0;
 
+    const doScroll = (move) => {
+        if (move === "prev") {
+            currentCustomer += 2;
+        } else {
+            currentCustomer += 1;
+        }
+        currentCustomer %= 3;
+        const customersElement = document.getElementById("customers");
+        const scrollWidth = customersElement.scrollWidth;
+        customersElement.scrollLeft = -(scrollWidth / 3) * currentCustomer;
+    };
+
+    window.setInterval(function () {
+        doScroll("next");
+    }, 3000);
+
+    return (move) => doScroll(move);
+}
+
+function moveImagess() {
+    let currentImage = 0;
+
+    const doScroll = (move) => {
+        if (move === "prev") {
+            currentImage += 4;
+        } else {
+            currentImage += 1;
+        }
+        currentImage %= 5;
+        const imagesElement = document.getElementById("images");
+        const scrollWidth = imagesElement.scrollWidth;
+        imagesElement.scrollLeft = (scrollWidth / 5) * currentImage;
+    };
+
+    return (move) => doScroll(move);
+}
+
+function openSidebar() {
+    const sideMenuElement = document.getElementById("sidemenu");
+    addOrRemoveClassname(sideMenuElement, true, "open");
+}
+
+function closeSidebar() {
+    const sideMenuElement = document.getElementById("sidemenu");
+    addOrRemoveClassname(sideMenuElement, false, "open");
+}
+
+function onConfirmSubmit() {
+    const myToastEl = document.getElementById("myToastEl");
+    const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl);
+    myToast.show();
+}
+
+const navItemClick = onNavbarClick();
 const colorHandlerObj = changeColor();
 const onToggleModeClick = colorHandlerObj.toggleMode;
 const onRandomColorClick = colorHandlerObj.randomColor;
+const onMoveComments = moveComments();
+const onMoveImages = moveImagess();
